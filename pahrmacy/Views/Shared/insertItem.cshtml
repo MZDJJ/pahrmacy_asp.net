@@ -1,0 +1,176 @@
+﻿@model pahrmacy.Models.items
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+ 
+    <style>
+        .modal-content {
+            border-radius: 14px;
+            box-shadow: 0 20px 40px rgba(0,0,0,.3);
+            border: none;
+        }
+
+        /* Header */
+        .modal-header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border-radius: 14px 14px 0 0;
+        }
+
+        .modal-title {
+            font-weight: bold;
+        }
+
+        /* Body spacing */
+        .modal-body {
+            padding: 30px;
+            background: #f9f9f9;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+            .form-control:focus {
+                border-color: #2a5298;
+                box-shadow: 0 0 0 2px rgba(42,82,152,.2);
+            }
+
+        /* Radio buttons */
+        .checkbox label {
+            font-weight: 500;
+        }
+
+        /* Image preview */
+        .form-group img {
+            display: block;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 4px;
+            max-width: 100%;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 24px;
+            font-weight: 600;
+        }
+
+            .btn-primary:hover {
+                opacity: .9;
+            }
+
+        .btn-danger {
+            border-radius: 10px;
+        }
+
+        /* Validation */
+        .text-danger {
+            font-size: 13px;
+        }
+
+        /* Animation */
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal.fade .modal-dialog {
+            animation: fadeInUp .5s ease;
+        }
+    </style>
+
+<!-- Modal -->
+<div class="modal fade" id="insertModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Insert New Item</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <form asp-action="Create" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="name" class="control-label"></label>
+                                <input asp-for="name" class="form-control" />
+                                <span asp-validation-for="name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="description" class="control-label"></label>
+                                <input asp-for="description" class="form-control" />
+                                <span asp-validation-for="description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="price" class="control-label"></label>
+                                <input asp-for="price" class="form-control" />
+                                <span asp-validation-for="price" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="discount" class="control-label"></label>
+                                <div class="checkbox">
+                                    <label> <input type="radio" asp-for="discount" value="yes" /> Yes</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label> <input type="radio" asp-for="discount" value="no" />No</label>
+                                </div>
+                                <span asp-validation-for="discount" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="quantity" class="control-label"></label>
+                                <input asp-for="quantity" class="form-control" />
+                                <span asp-validation-for="quantity" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Catagory</label>
+                                <select class="form-control" asp-for="category">
+                                    <option value="0">Please select</option>
+                                    <option value="1">Pharmaceutical</option>
+                                    <option value="2">Mom And Baby</option>
+                                    <option value="3">Beauity</option>
+                                </select>
+                                <span asp-validation-for="category" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Pic</label>
+                                <input type="file" class="form-control" name="file" />
+                                <img src="~/images/@Model.imgfile" height="150" />
+                                <br />@Model.imgfile
+                            </div>
+
+
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

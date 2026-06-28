@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewData["Title"] = "CatalogueBuy";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<style>
+    
+    h1 {
+        text-align: center;
+        color: #2e7d32;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+
+   
+    .card-header {
+        background: #4caf50;
+        color: white;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    
+    .card-body img {
+        width: 100%;
+        height: 150px;
+        object-fit: contain;
+    }
+
+   
+    .card-footer {
+        background: #f1f8f4;
+        text-align: center;
+    }
+
+        .card-footer a {
+            color: #2e7d32;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+</style>
+
+<h1>CatalogueBuy</h1>
+
+
+@model IEnumerable<pahrmacy.Models.items>
+
+<div class="container mt-4">
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card">
+
+                    <div class="card-header">
+                        @item.name
+                    </div>
+
+                    <div class="card-body">
+                        <img src="~/images/@item.imgfile" />
+                    </div>
+
+                    <div class="card-footer">
+                        <a asp-action="ItemsBuyDetail" asp-route-id="@item.Id">buy</a>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+

@@ -1,0 +1,130 @@
+﻿@model IEnumerable<pahrmacy.report>
+
+@{
+    ViewData["Title"] = "Reports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* خلفية عامة وخط */
+    body {
+        background: #f5fbfa;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    /* عنوان الصفحة */
+    h1 {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: #0f7764;
+        margin-bottom: 20px;
+    }
+
+    /* زر إضافة تقرير/فاتورة جديدة */
+    .btn-info.btn-lg {
+        background: linear-gradient(135deg, #00a58d, #00c1a3);
+        border: none;
+        border-radius: 12px;
+        padding: 8px 22px;
+        font-weight: 600;
+        color: #fff;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+        .btn-info.btn-lg:hover {
+            opacity: 0.95;
+        }
+
+    /* جدول التقارير */
+    table.table {
+        background: #ffffff;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        table.table thead {
+            background: #00a58d;
+            color: #ffffff;
+        }
+
+            table.table thead th {
+                border: none;
+                font-weight: 600;
+                padding-top: 14px;
+                padding-bottom: 14px;
+                padding-left: 15px;
+                padding-right: 15px;
+                white-space: nowrap;
+                text-align: left;
+            }
+
+        table.table tbody td {
+            vertical-align: middle;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            padding-left: 15px;
+            padding-right: 15px;
+            color: #333;
+        }
+
+        table.table tbody tr:nth-child(even) {
+            background: #f8fcfb;
+        }
+
+        table.table tbody tr:hover {
+            background: #e8f7f4;
+        }
+
+        /* رابط عملية العرض views */
+        table.table td a {
+            font-weight: 600;
+            text-decoration: none;
+            color: #007bff; /* لون أزرق احترافي لروابط التفاصيل */
+        }
+
+            table.table td a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<h1>Reports & Orders</h1>
+
+<p>
+    <a asp-action="Create" class="btn-info btn-lg">Create New Report</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.custname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.total)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.custname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.total)
+                </td>
+                <td>
+                    <a asp-action="orderdetails" asp-route-custname="@item.custname">Views</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<pahrmacy.Models.orders>
+@{
+    ViewData["Title"] = "MyOrder";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<style>
+ 
+    h1 {
+        text-align: center;
+        color: #2e7d32;
+        margin: 20px 0;
+        font-weight: 600;
+    }
+
+    
+    table {
+        width: 80%;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 12px;
+        border-collapse: collapse;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+
+    thead {
+        background: #4caf50;
+        color: white;
+    }
+
+   
+    th, td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    
+    a {
+        color: #2e7d32;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+</style>
+
+<h1>MyOrder</h1>
+<div >
+    <h1>My Purchase</h1>
+
+    
+
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.custname)</th>
+                <th>@Html.DisplayNameFor(model => model.total)</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.custname</td>
+                    <td>@item.total</td>
+                    <td><a asp-action="Orderline" asp-route-orid="@item.Id">View</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

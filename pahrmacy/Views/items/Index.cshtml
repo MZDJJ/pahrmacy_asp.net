@@ -1,0 +1,185 @@
+﻿@model IEnumerable<pahrmacy.Models.items>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    
+    /* خلفية عامة وخط */
+    body {
+        background: #f5fbfa;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    /* عنوان الصفحة */
+    h1 {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: #0f7764;
+        margin-bottom: 20px;
+    }
+
+    /* زر إضافة منتج جديد */
+    .btn-info.btn-lg {
+        background: linear-gradient(135deg, #00a58d, #00c1a3);
+        border: none;
+        border-radius: 12px;
+        padding: 8px 22px;
+        font-weight: 600;
+        color: #fff;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    }
+
+        .btn-info.btn-lg:hover {
+            opacity: 0.95;
+        }
+
+    /* جدول المنتجات */
+    table.table {
+        background: #ffffff;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+        table.table thead {
+            background: #00a58d;
+            color: #ffffff;
+        }
+
+            table.table thead th {
+                border: none;
+                font-weight: 600;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                white-space: nowrap;
+            }
+
+        table.table tbody td {
+            vertical-align: middle;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        table.table tbody tr:nth-child(even) {
+            background: #f8fcfb;
+        }
+
+        table.table tbody tr:hover {
+            background: #e8f7f4;
+        }
+
+        /* روابط العمليات Edit / Details / Delete */
+        table.table td a {
+            font-weight: 500;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+            table.table td a:first-child {
+                color: #0f7764;
+            }
+
+            table.table td a:nth-child(2) {
+                color: #007bff;
+            }
+
+            table.table td a:last-child {
+                color: #dc3545;
+            }
+
+            table.table td a:hover {
+                text-decoration: underline;
+            }
+
+    /* صورة المنتج في الجدول (لو استخدمناها) */
+    .item-thumb {
+        max-height: 100px;
+        border-radius: 8px;
+        border: 1px solid #dde6e3;
+        padding: 2px;
+        background: #fff;
+    }
+
+</style>
+
+<h1>Index</h1>
+
+
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#insertModal"> New Item</button>
+    @await Html.PartialAsync("insertitem", new items())
+
+    
+</button>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>
+                Image
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td>
+    @if (!string.IsNullOrEmpty(item.imgfile))
+    {
+        <img src="@Url.Content("~/images/" + item.imgfile)" class="item-thumb" />
+    }
+    else
+    {
+        <span class="text-muted">لا توجد صورة</span>
+    }
+</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

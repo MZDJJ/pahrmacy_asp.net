@@ -1,0 +1,184 @@
+﻿@model pahrmacy.Models.useraccounts
+
+@{
+    ViewData["Title"] = "users_search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>users_search</h1>
+
+<style>
+    <style >
+    
+    body {
+        background: #f4fbf6; 
+        font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    }
+
+    
+    h1 {
+        color: #1c7c54; 
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+   
+    form {
+        background: #ffffff;
+        max-width: 520px;
+        margin: 0 auto 25px auto; 
+        padding: 20px 25px;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label.control-label {
+        font-weight: 600;
+        color: #2f4a3b;
+        margin-bottom: 5px;
+    }
+
+    select.form-control {
+        border-radius: 8px;
+        border: 1px solid #c6e3d3;
+    }
+
+        select.form-control:focus {
+            border-color: #1c7c54;
+            box-shadow: 0 0 0 0.15rem rgba(28,124,84,0.25);
+        }
+
+    
+    input[type="submit"].btn-default {
+        background: #1c7c54;
+        border: none;
+        color: #ffffff;
+        padding: 8px 22px;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+
+        input[type="submit"].btn-default:hover {
+            background: #166245;
+        }
+
+    
+    dl.row {
+        background: #ffffff;
+        max-width: 520px;
+        margin: 0 auto 20px auto;
+        padding: 15px 20px;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    dt.col-sm-2 {
+        color: #6c757d;
+    }
+
+    dd.col-sm-10 {
+        font-weight: 600;
+        color: #1c1c1c;
+    }
+
+    
+    a.btn-danger,
+    a.btn-secondary {
+        border-radius: 20px;
+        padding: 7px 18px;
+        margin-right: 5px;
+    }
+
+    a.btn-danger {
+        background: #e53935;
+        border: none;
+    }
+
+        a.btn-danger:hover {
+            background: #c62828;
+        }
+
+    a.btn-secondary {
+        border: none;
+    }
+</style>
+
+</style>
+
+
+
+
+<form asp-action="users_search">
+    <div class="form-group">
+    </div>
+    <div class="form-group">
+        <label class="control-label">Select Role</label>
+        <select class="form-control" name="role" id="ro" onchange="getrole()">
+            <option value="0">Please select</option>
+            <option value="admin">Admin</option>
+            <option value="customer">Customer</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Select Name</label>
+        <select class="form-control" name="name" id="na"> </select>
+    </div>
+    <input type="submit" value="Show" class="btn btn-default" />
+</form>
+
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pass)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pass)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.role)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.role)
+        </dd>
+        </dl>
+        </div>
+
+        <script>
+
+            async function getrole() {
+                  var cc = document.getElementById('ro').value;
+                  var response = await fetch('/getName/' + cc);
+                  let x = await response.json();
+                  var dd = "<option> Please select</option>";
+                  for (i = 0; i < x.length; i++) {
+                      dd += "<option>" + x[i].name + "</option>";
+                  }
+                  document.getElementById("na").innerHTML = dd;
+              }
+        </script>
+
+        <div>
+            <a asp-action="Edit" asp-route-id = "@Model?.Id " class="btn btn-danger">Edit </a>
+    <a asp-action="Index" class="btn btn-secondary">Back To List </a>
+
+        </div>
+      
+        
+
+
+
+

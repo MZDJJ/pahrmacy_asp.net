@@ -1,0 +1,203 @@
+﻿@model pahrmacy.Models.items
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* حاوية الصفحة */
+    .edit-container {
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    /* عنوان الصفحة */
+    .edit-title {
+        font-weight: 700;
+        font-size: 1.7rem;
+        color: #0f7764;
+        margin-bottom: 5px;
+    }
+
+    .edit-subtitle {
+        color: #7b8f88;
+        margin-bottom: 18px;
+    }
+
+    /* كرت الفورم */
+    .edit-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 24px 28px 20px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    }
+
+        .edit-card .form-group {
+            margin-bottom: 14px;
+        }
+
+        .edit-card label.control-label {
+            font-weight: 600;
+            color: #16645a;
+            margin-bottom: 5px;
+        }
+
+        .edit-card .form-control {
+            border-radius: 10px;
+            border: 1px solid #cbd8d4;
+            padding: 9px 11px;
+            font-size: 0.95rem;
+        }
+
+            .edit-card .form-control:focus {
+                border-color: #00a58d;
+                box-shadow: 0 0 0 2px rgba(0, 165, 141, 0.18);
+            }
+
+        /* راديو الخصم */
+        .edit-card .checkbox {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+            .edit-card .checkbox label {
+                font-weight: 500;
+                cursor: pointer;
+            }
+
+    /* معاينة الصورة */
+    .item-image-preview {
+        display: block;
+        margin-top: 8px;
+        border-radius: 12px;
+        border: 1px solid #e0e7e4;
+        padding: 4px;
+        background: #ffffff;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .file-info {
+        font-size: 0.8rem;
+        color: #7b8f88;
+        display: block;
+        margin-top: 4px;
+    }
+
+    /* الأزرار */
+    .btn-primary {
+        background: linear-gradient(135deg, #00a58d, #00c1a3);
+        border: none;
+        border-radius: 12px;
+        padding: 9px 22px;
+        font-weight: 600;
+    }
+
+        .btn-primary:hover {
+            opacity: 0.96;
+        }
+
+    .back-link {
+        margin-top: 10px;
+        display: inline-block;
+        color: #0f7764;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+    .text-danger {
+        font-size: 0.8rem;
+    }
+</style>
+
+<div class="edit-container">
+    <h1 class="edit-title">Edit Item</h1>
+    <h4 class="edit-subtitle">تعديل بيانات الدواء / المنتج</h4>
+
+    <div class="edit-card">
+        <!-- مهم لرفع الصورة -->
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="price" class="control-label"></label>
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="discount" class="control-label"></label><br />
+                <div class="checkbox">
+                    <label><input type="radio" asp-for="discount" value="yes" /> Yes</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="radio" asp-for="discount" value="no" /> No</label>
+                </div>
+                <span asp-validation-for="discount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Category</label>
+                <select class="form-control" asp-for="category">
+                    <option value="0">Please select</option>
+                    <option value="1">Pharmaceutical</option>
+                    <option value="2">Mom And Baby</option>
+                    <option value="3">Beauity</option>
+                </select>
+                <span asp-validation-for="category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="quantity" class="control-label"></label>
+                <input asp-for="quantity" class="form-control" />
+                <span asp-validation-for="quantity" class="text-danger"></span>
+            </div>
+
+            <!-- معاينة الصورة الحالية -->
+            @if (!string.IsNullOrEmpty(Model.imgfile))
+            {
+                <img src="@Url.Content("~/images/" + Model.imgfile)" height="150" class="item-image-preview" />
+            }
+
+            <div class="form-group">
+                <label class="control-label">Picture</label>
+                <!-- نخزن اسم الملف القديم لو ما رفع صورة جديدة -->
+                <input type="hidden" asp-for="imgfile" />
+                @if (!string.IsNullOrEmpty(Model.imgfile))
+                {
+                    <span class="file-info">Current file: @Model.imgfile</span>
+                }
+                else
+                {
+                    <span class="file-info">No image uploaded yet</span>
+                }
+
+                <input type="file" class="form-control" name="file" />
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    <a asp-action="Index" class="back-link">Back to List</a>
+</div>

@@ -1,0 +1,129 @@
+﻿@model pahrmacy.Models.items
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .details-container {
+        max-width: 780px;
+        margin: 0 auto;
+    }
+
+    .details-title {
+        font-weight: 700;
+        font-size: 1.7rem;
+        color: #0f7764;
+        margin-bottom: 6px;
+    }
+
+    
+
+    .details-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 26px 30px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    }
+
+        .details-card dl {
+            margin-bottom: 0;
+        }
+
+        .details-card dt {
+            font-weight: 600;
+            color: #16645a;
+            padding-top: 8px;
+        }
+
+        .details-card dd {
+            margin-bottom: 12px;
+            padding-top: 8px;
+        }
+
+    .item-image {
+        border-radius: 12px;
+        border: 1px solid #e0e7e4;
+        padding: 4px;
+        background: #ffffff;
+        display: block;
+        margin-top: 6px;
+        max-height: 180px;
+    }
+
+    .file-name {
+        font-size: 0.8rem;
+        color: #7b8f88;
+        margin-top: 4px;
+        display: inline-block;
+    }
+
+    .details-actions {
+        margin-top: 14px;
+    }
+
+        .details-actions a {
+            font-weight: 600;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+            .details-actions a:first-child {
+                color: #0f7764;
+            }
+
+            .details-actions a:last-child {
+                color: #6c757d;
+            }
+
+            .details-actions a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<div class="details-container">
+    <h1 class="details-title">Item Details</h1>
+    
+
+    <div class="details-card">
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.name</dd>
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.description</dd>
+
+            <dt class="col-sm-3">Price</dt>
+            <dd class="col-sm-9">@Model.price</dd>
+
+            <dt class="col-sm-3">Discount</dt>
+            <dd class="col-sm-9">@Model.discount</dd>
+
+            <dt class="col-sm-3">Category</dt>
+            <dd class="col-sm-9">@Model.category</dd>
+
+            <dt class="col-sm-3">Quantity</dt>
+            <dd class="col-sm-9">@Model.quantity</dd>
+
+            <dt class="col-sm-3">Picture</dt>
+            <dd class="col-sm-9">
+                @if (!string.IsNullOrEmpty(Model.imgfile))
+                {
+                    <img src="@Url.Content("~/images/" + Model.imgfile)" class="item-image" />
+                    <span class="file-name">@Model.imgfile</span>
+                }
+                else
+                {
+                    <span class="file-name">No image available</span>
+                }
+            </dd>
+        </dl>
+    </div>
+
+    <div class="details-actions">
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

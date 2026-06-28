@@ -1,0 +1,131 @@
+﻿@model IEnumerable<pahrmacy.Models.items>
+
+@{
+    ViewData["Title"] = "Category";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h1>Category</h1>
+
+
+<style>
+    /* Table container spacing */
+    table {
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    /* Table header */
+    .table thead {
+        background-color: #2e7d32;
+        color: #ffffff;
+    }
+
+        .table thead th {
+            font-weight: 600;
+            text-align: center;
+            vertical-align: middle;
+            padding: 14px;
+            border: none;
+        }
+
+    /* Table body */
+    .table tbody td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 12px;
+        color: #333;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    /* Row hover effect */
+    .table tbody tr:hover {
+        background-color: #f1f8f4;
+    }
+
+    /* Price & quantity emphasis */
+    .table td:nth-child(3),
+    .table td:nth-child(6) {
+        font-weight: 600;
+        color: #2e7d32;
+    }
+
+    /* Category badge look */
+    .table td:nth-child(5) {
+        font-weight: 500;
+        color: #1b5e20;
+    }
+
+    /* Page title */
+    h1 {
+        color: #2e7d32;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    /* Responsive table */
+    @@media (max-width: 768px) {
+        .table
+
+    {
+        font-size: 14px;
+    }
+
+    }
+</style>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            
+            
+        </tr>
+}
+    </tbody>
+</table>

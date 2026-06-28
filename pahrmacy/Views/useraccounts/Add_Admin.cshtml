@@ -1,0 +1,105 @@
+﻿<style>
+    
+    h4 {
+        text-align: center;
+        color: #2e7d32;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    
+    .form-container {
+        max-width: 420px;
+        margin: auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    
+    label {
+        font-weight: 500;
+        color: #2e7d32;
+    }
+
+    
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #cfd8dc;
+        padding: 10px;
+    }
+
+        .form-control:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 0 2px rgba(76,175,80,.2);
+        }
+
+    
+    .btn {
+        width: 100%;
+        border-radius: 8px;
+        background: #4caf50;
+        color: white;
+        font-weight: 600;
+    }
+
+        .btn:hover {
+            background: #43a047;
+        }
+
+   
+    .alert {
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+</style>
+
+<h4>Add Admin</h4>
+<div class="form-container">
+    <form asp-action="Add_Admin" method="post" onsubmit="return ValidatePassword()">
+    <div class="form-group">
+        <label class=" contol-label" for="name">User Name</label>
+        <input type="text" name="name" id="name" class="form-control" required />
+    </div>
+        <div class="form-group">
+            <label class=" contol-label" for=" pass">Password</label>
+            <input type="password" name="pass" id="pass" class="form-control"placeholder="Enter  Password" required/>
+        </div>
+        <div class="form-group">
+            <label class=" contol-label" for=" pass1">Confirm Password</label>
+            <input type="password" name="pass1" id="pass1" class="form-control" placeholder="confirm  Password" required />
+        </div>
+        <br />
+        <button type="submit" class="btn btn primary"> Add </button>
+
+
+</form>
+
+    @if (ViewData["Message"] != null)
+    {
+        <div class=" alert alert-info mt-3"> 
+            
+          @ViewData["Message"]  </div>
+    }
+   
+</div>
+        
+
+<script>
+    function ValidatePassword(){
+        var pass1 = document.getElementById("pass").value;
+       var confirmPassword = document.getElementById("pass1").value;
+
+        if(pass1!= confirmPassword){
+            alert("Passwords didn't not match");
+            return false;
+        }
+        return true ;
+        
+
+
+
+    }
+</script>

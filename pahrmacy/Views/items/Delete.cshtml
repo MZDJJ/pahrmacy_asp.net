@@ -1,0 +1,121 @@
+﻿@model pahrmacy.Models.items
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .delete-container {
+        max-width: 750px;
+        margin: 0 auto;
+    }
+
+    .delete-title {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: #c0392b;
+        margin-bottom: 6px;
+    }
+
+    .delete-warning {
+        color: #a94442;
+        font-weight: 600;
+        margin-bottom: 16px;
+    }
+
+    .delete-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 26px 30px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        border-left: 6px solid #e74c3c;
+    }
+
+        .delete-card dt {
+            font-weight: 600;
+            color: #555;
+            padding-top: 8px;
+        }
+
+        .delete-card dd {
+            padding-top: 8px;
+            margin-bottom: 10px;
+        }
+
+    .delete-image {
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+        padding: 4px;
+        background: #fff;
+        max-height: 140px;
+        margin-top: 6px;
+        display: block;
+    }
+
+    .delete-actions {
+        margin-top: 16px;
+    }
+
+        .delete-actions .btn-danger {
+            border-radius: 12px;
+            padding: 8px 22px;
+            font-weight: 600;
+        }
+
+        .delete-actions a {
+            margin-left: 10px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #555;
+        }
+
+            .delete-actions a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<div class="delete-container">
+    <h1 class="delete-title">Delete Item</h1>
+    <p class="delete-warning"> Are you sure you want to permanently delete this item?</p>
+
+    <div class="delete-card">
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.name</dd>
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.description</dd>
+
+            <dt class="col-sm-3">Price</dt>
+            <dd class="col-sm-9">@Model.price</dd>
+
+            <dt class="col-sm-3">Discount</dt>
+            <dd class="col-sm-9">@Model.discount</dd>
+
+            <dt class="col-sm-3">Category</dt>
+            <dd class="col-sm-9">@Model.category</dd>
+
+            <dt class="col-sm-3">Quantity</dt>
+            <dd class="col-sm-9">@Model.quantity</dd>
+
+            <dt class="col-sm-3">Picture</dt>
+            <dd class="col-sm-9">
+                @if (!string.IsNullOrEmpty(Model.imgfile))
+                {
+                    <img src="@Url.Content("~/images/" + Model.imgfile)" class="delete-image" />
+                }
+                else
+                {
+                    <span class="text-muted">No image</span>
+                }
+            </dd>
+        </dl>
+
+        <form asp-action="Delete" class="delete-actions">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+</div>

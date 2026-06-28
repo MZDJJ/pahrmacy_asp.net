@@ -1,0 +1,124 @@
+﻿
+<h1>Statistics</h1>
+<html>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Category');
+      data.addColumn('number', 'Items');
+      data.addRows([
+        ['Pharmaceutical', @ViewData["d1"]],
+        ['Mom and Baby', @ViewData["d2"]],
+        ['Beautiy', @ViewData["d3"]]
+      ]);
+      var options = {'title':'Number of items',
+                     'width':400,
+                     'height':300};
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+</script>
+<style>
+    /* General */
+    body {
+        background: #f4f8f6;
+        font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    }
+
+    /* Title */
+    h1 {
+        text-align: center;
+        color: #2e7d32;
+        margin-bottom: 30px;
+    }
+
+    /* Cards */
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        transition: transform .2s;
+    }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+    /* Card header */
+    .card-header {
+        background: #4caf50;
+        color: white;
+        font-weight: 600;
+    }
+
+    /* Card body */
+    .card-body {
+        text-align: center;
+        background: #ffffff;
+    }
+
+    /* Card footer */
+    .card-footer {
+        background: #f1f8f4;
+        font-weight: 500;
+        color: #2e7d32;
+    }
+
+    /* Chart center */
+    #chart_div {
+        margin: 0 auto 30px;
+    }
+
+</style>
+<body>
+    <div id="chart_div"></div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class='card'>
+                <div class='card-header '>Pharmaceutical</div>
+                <div class='card-body'><img src='~/images/panadol.png' ; width='150px'></div>
+                <div class='card-footer'>
+                    Number of Medication <div> @ViewData["d1"] </div>
+                </div>
+            </div>
+        </div>
+       
+   
+    
+     
+
+  <div class="col-md-3">
+    <div class='card'>
+      <div class='card-header '>Baby And Mom</div>
+      <div class='card-body'><img src='~/images/Gamar.jpg' ; width='150px'></div>
+      <div class='card-footer'>Number of Baby and Mom Products <div> @ViewData["d2"] </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class='card'>
+      <div class='card-header'>Beautiy</div>
+      <div class='card-body'><img src='~/images/Ebdirma.png' ; width='150px'></div>
+      <div class='card-footer'>Number of Beautiy Products <div>@ViewData["d3"] </div>
+      </div>
+    </div>
+  </div>
+                
+
+</>
+
+ 
+
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

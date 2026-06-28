@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewData["Title"] = "ItemsBuyDetail";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<style>
+    /* Title */
+    h1 {
+        text-align: center;
+        color: #2e7d32;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    /* Details box */
+    .details-box {
+        max-width: 700px;
+        margin: auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+        /* Sub title */
+        .details-box h4 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+    /* Labels */
+    dt {
+        color: #2e7d32;
+        font-weight: 600;
+    }
+
+    /* Image */
+    .details-img {
+        width: 200px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    
+    .buy-form {
+        margin-top: 20px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+    }
+
+    
+    #tot {
+        color: #2e7d32;
+        font-weight: 600;
+    }
+
+    #errorMsg {
+        color: red;
+        font-size: 14px;
+    }
+
+    
+    .btn-success {
+        width: 100%;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+</style>
+
+<h1>ItemsBuyDetail</h1>
+
+<div class="details-box">
+
+    <h4>Item Details</h4>
+
+    <dl class="row">
+        <dt class="col-sm-2">Name:</dt>
+        <dd class="col-sm-10">@Model.name</dd>
+
+        <dt class="col-sm-2">Price:</dt>
+        <dd class="col-sm-10">@Model.price SR</dd>
+
+        <dt class="col-sm-2">Discount:</dt>
+        <dd class="col-sm-10">@Model.discount</dd>
+
+        <dt class="col-sm-2">Category:</dt>
+        <dd class="col-sm-10">
+            @{
+                var categoryName = Model.category switch
+                {
+                    1 => "pharmaceutical",
+                    2 => "Mom and Baby",
+                    3 => "beauity",
+                   
+                    _ => "Unknown"
+                };
+            }
+            @categoryName
+        </dd>
+
+        <dt class="col-sm-2"></dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.imgfile" class="details-img" />
+        </dd>
+    </dl>
+
+    <form asp-action="cartadd" method="post" class="buy-form">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" id="stockQty" value="@Model.quantity" />
+
+        <div class="form-group">
+            <label for="quantity" class="control-label">Quantity</label>
+            <input name="quantity" id="qu" class="form-control" onkeyup="getTotalAndValidate()" />
+        </div>
+
+        <p id="tot"></p>
+        <p id="errorMsg"></p>
+
+        <input type="submit" id="buyBtn" value="Buy" class="btn btn-success" disabled />
+    </form>
+
+</div>
+
+@section scripts {
+    <script>
+        function getTotalAndValidate() {
+
+            let quantityInput = document.getElementById('qu').value;
+            let price = parseFloat('@Model.price');
+            let availableStock = parseInt(document.getElementById('stockQty').value);
+            let discount = '@Model.discount' === "yes" ? 0.9 : 1;
+            let total = 0;
+            let errorMsg = "";
+
+            if (quantityInput && !isNaN(quantityInput)) {
+
+                let quantity = parseInt(quantityInput);
+                total = quantity * price * discount;
+
+                if (quantity > availableStock) {
+                    errorMsg = "Quantity exceeds available stock.";
+                    document.getElementById('buyBtn').disabled = true;
+                } else {
+                    document.getElementById('buyBtn').disabled = false;
+                }
+
+            } else {
+                errorMsg = "Please enter a valid quantity.";
+                document.getElementById('buyBtn').disabled = true;
+            }
+
+            document.getElementById('tot').innerHTML = "Total = " + total.toFixed(2) + " SR";
+            document.getElementById('errorMsg').innerHTML = errorMsg;
+        }
+    </script>
+}

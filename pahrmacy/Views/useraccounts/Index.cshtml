@@ -1,0 +1,150 @@
+﻿@model IEnumerable<pahrmacy.Models.useraccounts>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<style>
+    /* خلفية عامة وخط */
+    body {
+        background: #f5fbfa;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    /* عنوان الصفحة */
+    h1 {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: #0f7764;
+        margin-bottom: 20px;
+    }
+
+    /* زر إضافة مستخدم/أدمن جديد (إذا أردت تفعيله لاحقاً) */
+    .btn-info.btn-lg {
+        background: linear-gradient(135deg, #00a58d, #00c1a3);
+        border: none;
+        border-radius: 12px;
+        padding: 8px 22px;
+        font-weight: 600;
+        color: #fff;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+        .btn-info.btn-lg:hover {
+            opacity: 0.95;
+        }
+
+    /* جدول الحسابات */
+    table.table {
+        background: #ffffff;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        table.table thead {
+            background: #00a58d;
+            color: #ffffff;
+        }
+
+            table.table thead th {
+                border: none;
+                font-weight: 600;
+                padding-top: 14px;
+                padding-bottom: 14px;
+                padding-left: 15px;
+                padding-right: 15px;
+                white-space: nowrap;
+                text-align: left;
+            }
+
+        table.table tbody td {
+            vertical-align: middle;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            padding-left: 15px;
+            padding-right: 15px;
+            color: #333;
+        }
+
+        table.table tbody tr:nth-child(even) {
+            background: #f8fcfb;
+        }
+
+        table.table tbody tr:hover {
+            background: #e8f7f4;
+        }
+
+        /* روابط العمليات Edit / Details / Delete */
+        table.table td a {
+            font-weight: 500;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+            table.table td a:first-child {
+                color: #0f7764;
+            }
+
+            table.table td a:nth-child(2) {
+                color: #007bff;
+            }
+
+            table.table td a:last-child {
+                color: #dc3545;
+            }
+
+            table.table td a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<h1>User Management Index</h1>
+
+<!-- زر اختياري لإضافة حساب جديد بنفس ستايل New Item -->
+<p>
+    <a asp-action="Create" class="btn-info btn-lg">New Account</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pass)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.role)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

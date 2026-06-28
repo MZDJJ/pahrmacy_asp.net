@@ -1,0 +1,109 @@
+﻿@model IEnumerable<pahrmacy.orderline>
+
+@{
+    ViewData["Title"] = "Order Items";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* خلفية عامة وخط */
+    body {
+        background: #f5fbfa;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    /* عنوان الصفحة */
+    h1 {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: #0f7764;
+        margin-bottom: 25px;
+    }
+
+    /* جدول عناصر الطلب */
+    table.table {
+        background: #ffffff;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        table.table thead {
+            background: #00a58d;
+            color: #ffffff;
+        }
+
+            table.table thead th {
+                border: none;
+                font-weight: 600;
+                padding-top: 14px;
+                padding-bottom: 14px;
+                padding-left: 15px;
+                padding-right: 15px;
+                white-space: nowrap;
+                text-align: left;
+            }
+
+        table.table tbody td {
+            vertical-align: middle;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            padding-left: 15px;
+            padding-right: 15px;
+            color: #333;
+        }
+
+        table.table tbody tr:nth-child(even) {
+            background: #f8fcfb;
+        }
+
+        table.table tbody tr:hover {
+            background: #e8f7f4;
+        }
+</style>
+
+<h1>Order Items List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.itemname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemquant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemprice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderid)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.itemname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.itemquant)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.itemprice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderid)
+                </td>
+                <td>
+                    <!-- مساحة فارغة مجهزة لأي عمليات مستقبلاً كالتعديل أو الحذف -->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

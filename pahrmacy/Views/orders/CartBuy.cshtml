@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "CartBuy";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@model IEnumerable<pahrmacy.buyitems>
+
+    <style>
+    /* Title */
+    h1 {
+        text-align: center;
+        color: #2e7d32;
+        margin: 25px 0;
+        font-weight: 600;
+    }
+
+    /* Table box */
+    .table {
+        max-width: 750px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+
+        /* Header */
+        .table thead {
+            background: #4caf50;
+            color: white;
+        }
+
+        /* Cells */
+        .table th,
+        .table td {
+            text-align: center;
+            padding: 12px;
+            border-top: none;
+        }
+
+    /* Buttons */
+    .btn {
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .btn-primary {
+        background: #4caf50;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background: #43a047;
+        }
+
+    .btn-success {
+        background: #2e7d32;
+        border: none;
+    }
+
+    /* Message */
+    p {
+        text-align: center;
+        color: #2e7d32;
+    }
+
+    </style>
+
+<h1>CartBuy</h1>
+<div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.name)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.quant)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.quant)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="CatalogueBuy" class="btn btn-primary">Select More</a>
+</p>
+
+<h1 style="text-align:center">
+    <a asp-action="Buy" class="btn btn-success">Buy Now</a>
+</h1>
+
+<p>@ViewData["message"]</p>
+
+</div>
